@@ -68,11 +68,14 @@ const refs = {
   galleryEl: document.querySelector(".js-gallery"),
   lightBoxEl: document.querySelector(".js-lightbox"),
   lightBoxImgEl: document.querySelector(".lightbox__image"),
+  lightBoxOverlayEl: document.querySelector(".lightbox__overlay"),
   closeBtnEl: document.querySelector("[data-action='close-lightbox']"),
 };
 
 refs.galleryEl.addEventListener("click", onImageClick);
 refs.closeBtnEl.addEventListener("click", onCloseBtnClick);
+refs.lightBoxOverlayEl.addEventListener("click", onLightBoxOverlayClick);
+// refs.lightBoxEl.addEventListener("keydown", onArrowKeyPress);
 window.addEventListener("keydown", onEscBtnPress);
 
 function createGalleryMarkup(item) {
@@ -126,3 +129,13 @@ function onEscBtnPress(evt) {
   }
   onCloseBtnClick();
 }
+
+function onLightBoxOverlayClick(evt) {
+  onCloseBtnClick();
+}
+
+// function onArrowKeyPress(evt) {
+//   if (refs.lightBoxEl.classList.contains("is-open")) {
+//     console.log(evt.code);
+//   }
+// }
