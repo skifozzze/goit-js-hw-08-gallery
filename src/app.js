@@ -66,7 +66,13 @@ const galleryItems = [
 
 const refs = {
   galleryEl: document.querySelector(".js-gallery"),
+  lightBoxEl: document.querySelector(".js-lightbox"),
+  lightBoxImgEl: document.querySelector(".lightbox__image"),
+  closeBtnEl: document.querySelector("[data-action='close-lightbox']"),
 };
+
+refs.galleryEl.addEventListener("click", onImageClick);
+refs.closeBtnEl.addEventListener("click", onCloseBtnClick);
 
 function createGalleryMarkup(item) {
   return galleryItems
@@ -75,12 +81,12 @@ function createGalleryMarkup(item) {
         <li class="gallery__item">
           <a
             class="gallery__link"
-            href="${preview}"
+            href="${original}"
           >
             <img
               class="gallery__image"
               src="${preview}"
-              data-source="${preview}"
+              data-source="${original}"
               alt="${description}"
             />
           </a>
@@ -94,4 +100,21 @@ const galleryMarkup = createGalleryMarkup(galleryItems);
 
 refs.galleryEl.insertAdjacentHTML("beforeend", galleryMarkup);
 
-// console.log(createGalleryMarkup(galleryItems));
+function onImageClick(evt) {
+  evt.preventDefault();
+  if (evt.target.nodeName !== "IMG") {
+    return;
+  }
+
+  const bigImageUrl = evt.target.dataset.source;
+
+  refs.lightBoxEl.classList.add("is-open");
+
+  refs.lightBoxImgEl.src = bigImageUrl;
+  refs.lightBoxImgEl.alt = evt.target.alt;
+}
+
+function onCloseBtnClick() {
+  refs.lightBoxEl.classList.remove("is-open");
+  refs.lightBoxImgEl.src = "";
+}
