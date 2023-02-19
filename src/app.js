@@ -73,6 +73,7 @@ const refs = {
 
 refs.galleryEl.addEventListener("click", onImageClick);
 refs.closeBtnEl.addEventListener("click", onCloseBtnClick);
+window.addEventListener("keydown", onEscBtnPress);
 
 function createGalleryMarkup(item) {
   return galleryItems
@@ -117,4 +118,11 @@ function onImageClick(evt) {
 function onCloseBtnClick() {
   refs.lightBoxEl.classList.remove("is-open");
   refs.lightBoxImgEl.src = "";
+}
+
+function onEscBtnPress(evt) {
+  if (evt.code !== "Escape") {
+    return;
+  }
+  onCloseBtnClick();
 }
